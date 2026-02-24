@@ -1,0 +1,55 @@
+<?php
+
+use CodeIgniter\Router\RouteCollection;
+
+/**
+ * @var RouteCollection $routes
+ */
+
+
+$routes->setDefaultNamespace('App\Controllers');
+$routes->setDefaultController('HomeController');
+$routes->setDefaultMethod('index');
+$routes->setTranslateURIDashes(false);
+
+$routes->setAutoRoute(false);
+
+/*
+|--------------------------------------------------------------------------
+| Public Routes
+|--------------------------------------------------------------------------
+*/
+
+// Home
+$routes->get('/', 'HomeController::index');
+
+// User - Cart
+$routes->post('cart/add', 'CartController::add');
+$routes->get('cart', 'CartController::index');
+$routes->get('cart/remove/(:num)', 'CartController::remove/$1');
+
+// Login
+$routes->get('login', 'LoginController::index');
+$routes->post('login/process', 'LoginController::process');
+$routes->get('logout', 'LoginController::logout');
+
+
+/*
+|--------------------------------------------------------------------------
+| Admin Routes (Protected by Auth Filter)
+|--------------------------------------------------------------------------
+*/
+
+$routes->group('admin', ['filter' => 'auth'], function ($routes) {
+
+    $routes->get('products', 'ProductController::index');
+    $routes->get('products/create', 'ProductController::create');
+    $routes->post('products/store', 'ProductController::store');
+
+    $routes->get('products/edit/(:num)', 'ProductController::edit/$1');
+    $routes->post('products/update/(:num)', 'ProductController::update/$1');
+    $routes->get('products/delete/(:num)', 'ProductController::delete/$1');
+});
+
+$routes->get('checkout', 'CheckoutController::index');
+$routes->post('checkout/process', 'CheckoutController::process');
