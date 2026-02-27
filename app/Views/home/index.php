@@ -30,6 +30,12 @@
                          style="height:250px; object-fit:cover;">
 
                     <div class="card-body">
+
+    <?php if(!empty($p['category_name'])): ?>
+        <span class="badge bg-secondary mb-2">
+            <?= esc($p['category_name']) ?>
+        </span>
+    <?php endif; ?>
                         <h5><?= $p['name'] ?></h5>
                         <p class="text-success fw-bold">
                             Rp <?= number_format($p['price'], 0, ',', '.') ?>

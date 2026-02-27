@@ -1,13 +1,51 @@
-<h2>Checkout</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Checkout</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
 
-<form action="<?= base_url('checkout/process') ?>" method="post">
-    <input type="text" name="nama" placeholder="Nama Lengkap" required><br><br>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h3 class="mb-4 text-center">Checkout</h3>
 
-    <input type="email" name="email" placeholder="Email" required><br><br>
+                    <form action="<?= base_url('checkout/process') ?>" method="post">
 
-    <input type="text" name="no_hp" placeholder="No HP" required><br><br>
+                        <div class="mb-3">
+                            <label class="form-label">Nama Lengkap</label>
+                            <input type="text" name="nama" class="form-control" required>
+                        </div>
 
-    <textarea name="alamat" placeholder="Alamat Lengkap" required></textarea><br><br>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control" required>
+                        </div>
 
-    <button type="submit">Simpan Pesanan</button>
-</form>
+                        <div class="mb-3">
+                            <label class="form-label">No HP</label>
+                            <input type="text" name="no_hp" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Alamat Lengkap</label>
+                            <textarea name="alamat" class="form-control" rows="3" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">
+                            Simpan Pesanan
+                        </button>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

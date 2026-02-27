@@ -17,7 +17,10 @@ class HomeController extends BaseController
 
     public function index()
     {
-        $data['products'] = $this->product->findAll();
+        $data['products'] = $this->product
+        ->select('products.*, categories.name as category_name')
+        ->join('categories', 'categories.id = products.category_id', 'left')
+        ->findAll();
         return view('home/index', $data); // view customer
     }
 }

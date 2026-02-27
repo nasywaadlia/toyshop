@@ -27,7 +27,17 @@
                     <label class="form-label">Deskripsi</label>
                     <textarea name="description" class="form-control"></textarea>
                 </div>
-
+<div class="mb-3">
+    <label class="form-label">Category</label>
+    <select name="category_id" class="form-control">
+        <option value="">-- Pilih Category --</option>
+        <?php foreach ($categories as $c): ?>
+            <option value="<?= $c['id']; ?>">
+                <?= $c['name']; ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</div>
                 <div class="mb-3">
                     <label class="form-label">Gambar</label>
                     <input type="file" name="image" class="form-control">

@@ -5,15 +5,17 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\Product;
+use App\Models\CategoryModel;
 
 class ProductController extends BaseController
 {
     protected $product;
+    protected $category;
 
     public function __construct()
     {
         $this->product = new Product();
-        helper(['form']);
+        $this->category = new CategoryModel();        helper(['form']);
     }
 
     private function checkLogin()
@@ -25,13 +27,18 @@ class ProductController extends BaseController
 
     public function index()
     {
-        $data['products'] = $this->product->findAll();
+        $data['products'] = $this->product
+        ->select('products.*, categories.name as category_name')
+        ->join('categories', 'categories.id = products.category_id', 'left')            ->findAll();
+
+        $data['categories'] = $this->category->findAll();
         return view('products/index', $data);
     }
 
     public function create()
     {
-        return view('products/create');
+        $data['categories'] = $this->category->findAll();
+        return view('products/create', $data);
     }
 
     public function store()
@@ -48,6 +55,7 @@ class ProductController extends BaseController
             'name' => $this->request->getPost('name'),
             'price' => $this->request->getPost('price'),
             'description' => $this->request->getPost('description'),
+            'category_id' => $this->request->getPost('category_id'),
             'image' => $imageName
         ]);
 
@@ -56,6 +64,7 @@ class ProductController extends BaseController
     public function edit($id)
 {
     $data['product'] = $this->product->find($id);
+    $data['categories'] = $this->category->findAll();
     return view('products/edit', $data);
 }
 
@@ -75,6 +84,7 @@ public function update($id)
         'name' => $this->request->getPost('name'),
         'price' => $this->request->getPost('price'),
         'description' => $this->request->getPost('description'),
+        'category_id' => $this->request->getPost('category_id'),
         'image' => $imageName
     ]);
 

@@ -56,7 +56,7 @@
         Kembali Belanja
     </a>
 
-    <a href="<?= base_url('checkout') ?>" class="btn btn-success">
+    <a href="<?= base_url('checkout') ?>" class="btn btn-success mt-3">
     Checkout
     </a>
 </div>

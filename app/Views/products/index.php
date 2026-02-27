@@ -25,10 +25,17 @@
 
                     <div class="card-body">
                         <h5 class="card-title"><?= $p['name']; ?></h5>
-                        <p class="text-success fw-bold">
+                            <p>
+                                <span class="badge bg-secondary">
+                                    <?= $p['category_name']; ?>
+                                </span>
+                            </p>
+
+                            <p class="text-success fw-bold">
                             Rp <?= number_format($p['price']); ?>
-                        </p>
-                        <p class="card-text"><?= $p['description']; ?></p>
+                            </p>
+
+                            <p class="card-text"><?= $p['description']; ?></p>
                     </div>
 
                     <div class="card-footer bg-white d-flex justify-content-between">

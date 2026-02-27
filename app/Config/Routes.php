@@ -49,6 +49,14 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('products/edit/(:num)', 'ProductController::edit/$1');
     $routes->post('products/update/(:num)', 'ProductController::update/$1');
     $routes->get('products/delete/(:num)', 'ProductController::delete/$1');
+
+    $routes->get('categories', 'CategoryController::index');
+    $routes->get('categories/create', 'CategoryController::create');
+    $routes->post('categories/store', 'CategoryController::store');
+    $routes->get('categories/edit/(:num)', 'CategoryController::edit/$1');
+    $routes->post('categories/update/(:num)', 'CategoryController::update/$1');
+    $routes->get('categories/delete/(:num)', 'CategoryController::delete/$1');
+
 });
 
 $routes->get('checkout', 'CheckoutController::index');

@@ -34,6 +34,19 @@
                 </div>
 
                 <div class="mb-3">
+    <label class="form-label">Category</label>
+    <select name="category_id" class="form-select">
+        <option value="">-- Pilih Category --</option>
+        <?php foreach ($categories as $c): ?>
+            <option value="<?= $c['id']; ?>"
+                <?= $c['id'] == $product['category_id'] ? 'selected' : ''; ?>>
+                <?= esc($c['name']); ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</div>
+
+                <div class="mb-3">
                     <label class="form-label">Gambar Saat Ini</label><br>
                     <?php if($product['image']): ?>
                         <img src="<?= base_url('image/' . $product['image']); ?>" 

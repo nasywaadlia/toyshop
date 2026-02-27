@@ -16,7 +16,8 @@ class Product extends Model
         'name',
         'price',
         'description',
-        'image'];
+        'image',
+        'category_id'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
