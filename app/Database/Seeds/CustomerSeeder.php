@@ -10,11 +10,20 @@ class CustomerSeeder extends Seeder
     {
         $data = [
             [
-                'nama' => 'Nasywa',
-                'email' => 'nasywa@email.com',
-                'no_hp' => '08123456789',
-                'alamat' => 'Depok',
-                'created_at' => date('Y-m-d H:i:s')
+                'nama'       => 'Nasywa',
+                'email'      => 'nasywa@email.com',
+                'no_hp'      => '08123456789',
+                'alamat'     => 'Depok',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'nama'       => 'Saskia',
+                'email'      => 'saskia@email.com',
+                'no_hp'      => '088763456789',
+                'alamat'     => 'Jakarta',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
             ],
         ];
 

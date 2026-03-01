@@ -15,6 +15,11 @@ class CreateProducts extends Migration
             'unsigned' => true,
             'auto_increment' => true,
         ],
+        'category_id' => [
+            'type' => 'INT',
+            'constraint' => 5,
+            'unsigned' => true,
+        ],
         'name' => [
             'type' => 'VARCHAR',
             'constraint' => '100',
@@ -41,6 +46,6 @@ class CreateProducts extends Migration
 
     public function down()
     {
-        //
+        $this->forge->dropTable('products');
     }
 }

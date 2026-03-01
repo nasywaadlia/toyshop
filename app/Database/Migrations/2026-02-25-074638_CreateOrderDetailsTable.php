@@ -29,6 +29,14 @@ class CreateOrderDetailsTable extends Migration
                 'type'       => 'DECIMAL',
                 'constraint' => '12,2',
             ],
+            'created_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'updated_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
         ]);
 
         $this->forge->addKey('id', true);
