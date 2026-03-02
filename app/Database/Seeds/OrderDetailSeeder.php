@@ -10,7 +10,7 @@ class OrderDetailSeeder extends Seeder
     {
         $data = [
             [
-                'order_id'   => 1,
+                'order_id'   => 3,
                 'product_id' => 1,
                 'qty'        => 2,
                 'price'      => 75000.00,
@@ -18,7 +18,7 @@ class OrderDetailSeeder extends Seeder
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
-                'order_id'   => 1,
+                'order_id'   => 4,
                 'product_id' => 2,
                 'qty'        => 1,
                 'price'      => 50000.00,
