@@ -121,12 +121,17 @@
     <div class="d-flex justify-content-between align-items-center mb-5">
         <h1>Toyshop</h1>
         
+         <div class="d-flex gap-2">
+        <a href="<?= base_url('admin/categories') ?>"
+       class="btn btn-warning shadow me-2">
+       Kelola Kategori
+        </a>
         <a href="<?= base_url('admin/products/create') ?>"
            class="btn btn-primary shadow">
            Tambah Produk
         </a>
     </div>
-
+</div>
     <div class="row">
 
         <?php foreach($products as $p): ?>

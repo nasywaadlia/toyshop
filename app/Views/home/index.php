@@ -102,42 +102,92 @@
 
 <body>
 
-<div class="container mt-4">
+<nav class="navbar navbar-expand-lg bg-white shadow-sm py-3">
+    <div class="container">
 
-    <div class="d-flex justify-content-between align-items-center mb-4">       
-         <h1 class="mb-0">Toyshop</h1>
-        <!-- Category -->
-        <div class="d-flex gap-2">
-        <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle shadow" type="button" data-bs-toggle="dropdown">
-                Kategori
-            </button>
-            <ul class="dropdown-menu">
+        <a class="navbar-brand fw-bold text-danger fs-4" href="<?= base_url('/') ?>">
+            Toyshop
+        </a>
 
-                <li>
-                    <a class="dropdown-item" href="<?= base_url('/') ?>">
-                        Semua
-                    </a>
-                </li>
+        <div class="ms-auto d-flex align-items-center gap-3">
 
-                <?php foreach($categories as $c): ?>
+            <div class="dropdown">
+                <button class="btn btn-outline-danger dropdown-toggle"
+                        type="button"
+                        data-bs-toggle="dropdown">
+                    Kategori
+                </button>
+
+                <ul class="dropdown-menu">
                     <li>
-                        <a class="dropdown-item" 
-                           href="<?= base_url('/?category_id=' . $c['id']) ?>">
-                            <?= esc($c['name']) ?>
+                        <a class="dropdown-item" href="<?= base_url('/') ?>">
+                            Semua
                         </a>
                     </li>
-                <?php endforeach; ?>
-            </ul>
+
+                    <?php foreach($categories as $c): ?>
+                        <li>
+                            <a class="dropdown-item"
+                               href="<?= base_url('/?category_id=' . $c['id']) ?>">
+                                <?= esc($c['name']) ?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+
+            <a href="<?= base_url('cart') ?>" 
+               class="btn btn-danger">
+                Keranjang 🛒
+            </a>
+
+        </div>
+    </div>
+</nav>
+<section class="py-5"
+         style="background: linear-gradient(135deg, #ffdee9, #b5fffc);">
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <div class="col-md-6">
+                <h1 class="fw-bold display-5 mb-3">
+                     Mainan Lucu, Harga Bersahabat 🎉
+                </h1>
+
+                <p class="mb-4">
+                    Temukan koleksi mainan terbaik!
+                    Kualitas oke, harga nggak bikin nangis.
+                </p>
+
+                <a href="#produk" class="btn btn-danger px-4 py-2">
+                    Belanja Sekarang
+                </a>
+            </div>
+
+            <div class="col-md-6 text-center">
+               <img src="https://cdn-icons-png.flaticon.com/512/3468/3468371.png"
+     alt="Boneka"
+     class="img-fluid"
+     style="max-height:250px; transition:0.3s ease;"
+     onmouseover="this.style.transform='scale(1.1)'"
+     onmouseout="this.style.transform='scale(1)'">
+            </div>
+
         </div>
 
-        <a href="<?= base_url('cart') ?>" class="btn btn-success shadow">
-            Lihat Keranjang 🛒
-        </a>
     </div>
-</div>
+</section>
 
-    <div class="row">
+    <section class="py-5 bg-light" id="produk">
+    <div class="container">
+
+        <h2 class="text-center fw-bold mb-5">
+            Produk Terbaru
+        </h2>
+
+        <div class="row">
         <?php foreach ($products as $p): ?>
             <div class="col-md-4 mb-4">
                 <div class="card h-100 shadow-sm">
@@ -186,5 +236,10 @@
 
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<footer class="bg-dark text-white text-center py-4">
+    <p class="mb-0">
+        © <?= date('Y') ?> Toyshop. All Rights Reserved.
+    </p>
+</footer>
 </body>
 </html>
