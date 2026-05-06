@@ -28,10 +28,9 @@ $routes->post('cart/add', 'CartController::add');
 $routes->get('cart', 'CartController::index');
 $routes->get('cart/remove/(:num)', 'CartController::remove/$1');
 
-// Login
-$routes->get('login', 'LoginController::index');
-$routes->post('login/process', 'LoginController::process');
-$routes->get('logout', 'LoginController::logout');
+// Checkout
+$routes->get('checkout', 'CheckoutController::index');
+$routes->post('checkout/process', 'CheckoutController::process');
 
 
 /*
@@ -40,8 +39,14 @@ $routes->get('logout', 'LoginController::logout');
 |--------------------------------------------------------------------------
 */
 
+// Login
+$routes->get('login', 'LoginController::index');
+$routes->post('login/process', 'LoginController::process');
+$routes->get('logout', 'LoginController::logout');
+
 $routes->group('admin', ['filter' => 'auth'], function ($routes) {
 
+    // CRUD products
     $routes->get('products', 'ProductController::index');
     $routes->get('products/create', 'ProductController::create');
     $routes->post('products/store', 'ProductController::store');
@@ -50,6 +55,7 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->post('products/update/(:num)', 'ProductController::update/$1');
     $routes->get('products/delete/(:num)', 'ProductController::delete/$1');
 
+    // Categories
     $routes->get('categories', 'CategoryController::index');
     $routes->get('categories/create', 'CategoryController::create');
     $routes->post('categories/store', 'CategoryController::store');
@@ -58,6 +64,3 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('categories/delete/(:num)', 'CategoryController::delete/$1');
 
 });
-
-$routes->get('checkout', 'CheckoutController::index');
-$routes->post('checkout/process', 'CheckoutController::process');

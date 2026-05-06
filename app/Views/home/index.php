@@ -144,6 +144,7 @@
         </div>
     </div>
 </nav>
+
 <section class="py-5"
          style="background: linear-gradient(135deg, #ffdee9, #b5fffc);">
 
@@ -180,7 +181,7 @@
     </div>
 </section>
 
-    <section class="py-5 bg-light" id="produk">
+<section class="py-5 bg-light" id="produk">
     <div class="container">
 
         <h2 class="text-center fw-bold mb-5">
@@ -232,14 +233,32 @@
                 </div>
             </div>
         <?php endforeach ?>
-    </div>
+        </div>
 
-</div>
+    </div>
+</section>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 <footer class="bg-dark text-white text-center py-4">
     <p class="mb-0">
         © <?= date('Y') ?> Toyshop. All Rights Reserved.
     </p>
 </footer>
+
+<!-- ✅ SWEETALERT NOTIF -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<?php if (session()->getFlashdata('success')): ?>
+<script>
+Swal.fire({
+    title: 'Berhasil 🎉',
+    text: '<?= session()->getFlashdata('success') ?>',
+    icon: 'success',
+    confirmButtonColor: '#ff4d6d'
+});
+</script>
+<?php endif; ?>
+
 </body>
 </html>
