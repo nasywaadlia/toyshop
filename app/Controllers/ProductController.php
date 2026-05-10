@@ -42,25 +42,31 @@ class ProductController extends BaseController
     }
 
     public function store()
-    {
-        $file = $this->request->getFile('image');
+{
+    $file = $this->request->getFile('image');
 
-        $imageName = null;
-        if ($file && $file->isValid()) {
-            $imageName = $file->getRandomName();
-            $file->move('image', $imageName);
-        }
+    $imageName = null;
 
-        $this->product->save([
-            'name' => $this->request->getPost('name'),
-            'price' => $this->request->getPost('price'),
-            'description' => $this->request->getPost('description'),
-            'category_id' => $this->request->getPost('category_id'),
-            'image' => $imageName
-        ]);
+    if ($file && $file->isValid()) {
 
-        return redirect()->to('/admin/products');
+        $imageName = $file->getRandomName();
+
+        $file->move(
+            FCPATH . 'image',
+            $imageName
+        );
     }
+
+    $this->product->save([
+        'name' => $this->request->getPost('name'),
+        'price' => $this->request->getPost('price'),
+        'description' => $this->request->getPost('description'),
+        'category_id' => $this->request->getPost('category_id'),
+        'image' => $imageName
+    ]);
+
+    return redirect()->to('/admin/products');
+}
     public function edit($id)
 {
     $data['product'] = $this->product->find($id);
