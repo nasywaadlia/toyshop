@@ -11,15 +11,23 @@ class LoginController extends BaseController
     {
         return view('auth/login');
     }
-     public function process()
+
+    public function process()
     {
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');
 
         if ($username === 'admin' && $password === '1234') {
+
             session()->set('logged_in', true);
+
             return redirect()->to('/admin/products');
         }
+
+        session()->setFlashdata(
+            'error',
+            'Username atau password salah'
+        );
 
         return redirect()->to('/login');
     }
@@ -27,6 +35,7 @@ class LoginController extends BaseController
     public function logout()
     {
         session()->destroy();
+
         return redirect()->to('/');
     }
 }

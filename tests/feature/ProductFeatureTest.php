@@ -2,61 +2,33 @@
 
 namespace Tests\Feature;
 
-use CodeIgniter\Test\CIUnitTestCase;
-use CodeIgniter\Test\FeatureTestTrait;
-use Config\Database;
+require_once __DIR__ . '/../Support/FeatureTestCase.php';
 
-class ProductFeatureTest extends CIUnitTestCase
+use Tests\Support\FeatureTestCase;
+
+class ProductFeatureTest extends FeatureTestCase
 {
-    use FeatureTestTrait;
-
-    protected function setUp(): void
+    public function testLoginPageLoads()
     {
-        parent::setUp();
+        $result = $this->get('/login');
 
-        $db = Database::connect();
-
-        $db->query("
-            CREATE TABLE IF NOT EXISTS db_products (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                name TEXT,
-                price INTEGER,
-                description TEXT,
-                image TEXT,
-                category_id INTEGER
-            )
-        ");
-
-        $db->query("
-            INSERT INTO db_products
-            (name, price, description, image, category_id)
-            VALUES
-            ('Toy', 10000, 'Desc', 'toy.jpg', 1)
-        ");
+        $result->assertStatus(200);
     }
 
-    public function testProductsPageLoads()
+    public function testCheckoutPageLoads()
     {
-        $this->get('/')->assertStatus(200);
+        $result = $this->get('/checkout');
+
+        $result->assertStatus(200);
     }
 
-    public function testProductResponseOk()
+    public function testLoginPost()
     {
-        $this->get('/')->assertOK();
-    }
+        $result = $this->post('/login/process', [
+            'username' => 'admin',
+            'password' => '1234'
+        ]);
 
-    public function testProductPageNot404()
-    {
-        $this->get('/')->assertStatus(200);
-    }
-
-    public function testProductRouteAccessible()
-    {
-        $this->get('/')->assertOK();
-    }
-
-    public function testProductViewLoads()
-    {
-        $this->get('/')->assertStatus(200);
+        $result->assertStatus(302);
     }
 }

@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Login - Toyshop</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
@@ -39,19 +40,27 @@
         <p class="text-muted mb-0">Silakan login dulu</p>
     </div>
 
+    <?php if(session()->getFlashdata('error')) : ?>
+
+        <div class="alert alert-danger text-center">
+            <?= session()->getFlashdata('error') ?>
+        </div>
+
+    <?php endif; ?>
+
     <form method="post" action="<?= base_url('login/process') ?>">
 
         <div class="mb-4">
-            <input type="text" 
-                   name="username" 
+            <input type="text"
+                   name="username"
                    class="form-control form-control-lg"
                    placeholder="Username"
                    required>
         </div>
 
         <div class="mb-4">
-            <input type="password" 
-                   name="password" 
+            <input type="password"
+                   name="password"
                    class="form-control form-control-lg"
                    placeholder="Password"
                    required>
