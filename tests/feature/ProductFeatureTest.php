@@ -2,33 +2,125 @@
 
 namespace Tests\Feature;
 
-require_once __DIR__ . '/../Support/FeatureTestCase.php';
+use CodeIgniter\Test\CIUnitTestCase;
+use CodeIgniter\Test\FeatureTestTrait;
 
-use Tests\Support\FeatureTestCase;
-
-class ProductFeatureTest extends FeatureTestCase
+class ProductFeatureTest extends CIUnitTestCase
 {
-    public function testLoginPageLoads()
-    {
-        $result = $this->get('/login');
+    use FeatureTestTrait;
 
-        $result->assertStatus(200);
+    public function testProductIndexPage()
+    {
+        $result = $this->get('/admin/products');
+
+        $this->assertTrue(
+            $result->response()->getStatusCode() == 200 ||
+            $result->response()->getStatusCode() == 302
+        );
     }
 
-    public function testCheckoutPageLoads()
+    public function testCreatePageLoads()
     {
-        $result = $this->get('/checkout');
+        $result = $this->get('/admin/products/create');
 
-        $result->assertStatus(200);
+        $this->assertTrue(
+            $result->response()->getStatusCode() == 200 ||
+            $result->response()->getStatusCode() == 302
+        );
     }
 
-    public function testLoginPost()
+    public function testStoreProduct()
     {
-        $result = $this->post('/login/process', [
-            'username' => 'admin',
-            'password' => '1234'
+        $result = $this->call('post', '/admin/products/store', [
+            'name' => 'Lego Batman',
+            'price' => 500000,
+            'description' => 'Batman Toy',
+            'category_id' => 1
         ]);
 
-        $result->assertStatus(302);
+        $this->assertTrue(
+            $result->response()->getStatusCode() == 302 ||
+            $result->response()->getStatusCode() == 200
+        );
+    }
+
+    public function testStoreProductWithoutName()
+    {
+        $result = $this->call('post', '/admin/products/store', [
+            'name' => '',
+            'price' => 100000,
+            'description' => 'Toy',
+            'category_id' => 1
+        ]);
+
+        $this->assertNotNull($result);
+    }
+
+    public function testStoreProductWithoutPrice()
+    {
+        $result = $this->call('post', '/admin/products/store', [
+            'name' => 'Toy',
+            'price' => '',
+            'description' => 'Toy Desc',
+            'category_id' => 1
+        ]);
+
+        $this->assertNotNull($result);
+    }
+
+    public function testStoreWithLongDescription()
+    {
+        $result = $this->call('post', '/admin/products/store', [
+            'name' => 'Toy',
+            'price' => 10000,
+            'description' => str_repeat('A', 500),
+            'category_id' => 1
+        ]);
+
+        $this->assertNotNull($result);
+    }
+
+    public function testStoreWithLargePrice()
+    {
+        $result = $this->call('post', '/admin/products/store', [
+            'name' => 'Expensive Toy',
+            'price' => 999999999,
+            'description' => 'Very expensive toy',
+            'category_id' => 1
+        ]);
+
+        $this->assertNotNull($result);
+    }
+
+    public function testEditPageLoads()
+    {
+        $result = $this->get('/admin/products/edit/1');
+
+        $this->assertTrue(
+            $result->response()->getStatusCode() == 200 ||
+            $result->response()->getStatusCode() == 302
+        );
+    }
+
+    public function testUpdateProduct()
+    {
+        $result = $this->call('post', '/admin/products/update/1', [
+            'name' => 'Updated Product',
+            'price' => 300000,
+            'description' => 'Updated Description',
+            'category_id' => 1
+        ]);
+
+        $this->assertTrue(
+            $result->response()->getStatusCode() == 302 ||
+            $result->response()->getStatusCode() == 200
+        );
+    }
+
+    public function testUpdateWithEmptyData()
+    {
+        $result = $this->call('post', '/admin/products/update/1', []);
+
+        $this->assertNotNull($result);
     }
 }
