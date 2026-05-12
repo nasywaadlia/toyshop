@@ -8,60 +8,62 @@ class CategoryValidationTest extends CIUnitTestCase
 {
     public function testCategoryNameNotEmpty()
     {
-        $this->assertNotEmpty('Action Figure');
+        $this->assertNotEmpty('Puzzle');
     }
 
-    public function testCategoryIsString()
+    public function testCategoryNameIsString()
     {
-        $this->assertIsString('Puzzle');
+        $this->assertIsString('Action Figure');
     }
 
-    public function testCategoryLength()
+    public function testCategoryNameLength()
     {
-        $this->assertGreaterThan(3, strlen('Puzzle'));
+        $this->assertGreaterThan(3, strlen('Robot'));
     }
 
-    public function testCategoryArray()
+    public function testCategoryArrayHasName()
     {
-        $category = ['name' => 'Puzzle'];
+        $category = [
+            'name' => 'Puzzle'
+        ];
 
         $this->assertArrayHasKey('name', $category);
     }
 
     public function testCategoryCount()
     {
-        $categories = ['A', 'B'];
+        $categories = ['Puzzle', 'Robot', 'Lego'];
 
-        $this->assertCount(2, $categories);
+        $this->assertCount(3, $categories);
     }
 
-    public function testCategorySlug()
+    public function testCategorySlugGeneration()
     {
         $slug = strtolower(str_replace(' ', '-', 'Action Figure'));
 
         $this->assertEquals('action-figure', $slug);
     }
 
-    public function testCategoryUppercase()
-    {
-        $this->assertEquals('PUZZLE', strtoupper('Puzzle'));
-    }
-
-    public function testCategoryLowercase()
-    {
-        $this->assertEquals('puzzle', strtolower('Puzzle'));
-    }
-
-    public function testCategoryBoolean()
-    {
-        $this->assertTrue(true);
-    }
-
-    public function testCategoryUniqueSimulation()
+    public function testCategoryNameNotDuplicate()
     {
         $category1 = 'Puzzle';
         $category2 = 'Robot';
 
         $this->assertNotEquals($category1, $category2);
+    }
+
+    public function testCategoryContainsWord()
+    {
+        $this->assertStringContainsString('Figure', 'Action Figure');
+    }
+
+    public function testCategoryStartsWithLetter()
+    {
+        $this->assertStringStartsWith('P', 'Puzzle');
+    }
+
+    public function testCategoryEndsWithLetter()
+    {
+        $this->assertStringEndsWith('t', 'Robot');
     }
 }

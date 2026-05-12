@@ -6,62 +6,80 @@ use CodeIgniter\Test\CIUnitTestCase;
 
 class CartLogicTest extends CIUnitTestCase
 {
-    public function testCartSubtotal()
+    public function testCartItemAdded()
     {
-        $this->assertEquals(30000, 10000 + 20000);
+        $cart = ['Puzzle'];
+
+        $this->assertContains('Puzzle', $cart);
     }
 
-    public function testCartQuantity()
+    public function testCartQuantityIncrease()
     {
-        $this->assertEquals(3, 1 + 2);
+        $qty = 1;
+        $qty++;
+
+        $this->assertEquals(2, $qty);
     }
 
-    public function testCartIsArray()
+    public function testCartSubtotalCalculation()
+    {
+        $subtotal = 50000 * 2;
+
+        $this->assertEquals(100000, $subtotal);
+    }
+
+    public function testCartTotalCalculation()
+    {
+        $total = 100000 + 20000;
+
+        $this->assertEquals(120000, $total);
+    }
+
+    public function testCartArrayExists()
     {
         $cart = [];
+
         $this->assertIsArray($cart);
     }
 
-    public function testCartCanStoreItems()
+    public function testCartItemHasName()
     {
-        $cart = ['Toy'];
-        $this->assertCount(1, $cart);
+        $item = [
+            'name' => 'Robot'
+        ];
+
+        $this->assertArrayHasKey('name', $item);
+    }
+
+    public function testCartItemHasPrice()
+    {
+        $item = [
+            'price' => 50000
+        ];
+
+        $this->assertArrayHasKey('price', $item);
+    }
+
+    public function testCartItemHasQty()
+    {
+        $item = [
+            'qty' => 1
+        ];
+
+        $this->assertArrayHasKey('qty', $item);
     }
 
     public function testRemoveItemFromCart()
     {
-        $cart = ['Toy'];
-        unset($cart[0]);
+        $cart = ['Puzzle', 'Robot'];
 
-        $this->assertEmpty($cart);
+        unset($cart[1]);
+
+        $this->assertCount(1, $cart);
     }
 
-    public function testTaxCalculation()
+    public function testCartTotalGreaterThanZero()
     {
-        $subtotal = 100000;
-        $tax = $subtotal * 0.1;
-
-        $this->assertEquals(10000, $tax);
-    }
-
-    public function testShippingFee()
-    {
-        $this->assertEquals(15000, 15000);
-    }
-
-    public function testTotalWithShipping()
-    {
-        $this->assertEquals(115000, 100000 + 15000);
-    }
-
-    public function testCartSessionExists()
-    {
-        $session = true;
-        $this->assertTrue($session);
-    }
-
-    public function testCartItemName()
-    {
-        $this->assertStringContainsString('Toy', 'Toy Robot');
+        $this->assertGreaterThan(0, 50000);
     }
 }

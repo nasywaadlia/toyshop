@@ -27,13 +27,6 @@ class SessionValidationTest extends CIUnitTestCase
         $this->assertTrue($destroy);
     }
 
-    public function testRememberToken()
-    {
-        $token = md5('admin');
-
-        $this->assertNotEmpty($token);
-    }
-
     public function testFlashdataExists()
     {
         $flashdata = 'success';
@@ -41,34 +34,42 @@ class SessionValidationTest extends CIUnitTestCase
         $this->assertEquals('success', $flashdata);
     }
 
-    public function testCsrfTokenString()
-    {
-        $token = 'abcdef';
-
-        $this->assertIsString($token);
-    }
-
-    public function testSessionId()
-    {
-        $sessionId = session_id();
-
-        $this->assertIsString($sessionId);
-    }
-
     public function testUserLoggedIn()
     {
-        $this->assertTrue(true);
+        $loggedIn = true;
+
+        $this->assertTrue($loggedIn);
     }
 
     public function testUserLogout()
     {
-        $this->assertFalse(false);
+        $loggedOut = false;
+
+        $this->assertFalse($loggedOut);
     }
 
     public function testSessionArray()
     {
-        $session = ['user' => 'admin'];
+        $session = [
+            'user' => 'admin'
+        ];
 
         $this->assertArrayHasKey('user', $session);
+    }
+
+    public function testSessionHasRole()
+    {
+        $session = [
+            'role' => 'admin'
+        ];
+
+        $this->assertArrayHasKey('role', $session);
+    }
+
+    public function testSessionUsernameNotEmpty()
+    {
+        $username = 'admin';
+
+        $this->assertNotEmpty($username);
     }
 }

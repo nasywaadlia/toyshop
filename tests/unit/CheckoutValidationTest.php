@@ -21,25 +21,6 @@ class CheckoutValidationTest extends CIUnitTestCase
         $this->assertNotEmpty('Bandung');
     }
 
-    public function testPaymentMethodExists()
-    {
-        $methods = ['COD', 'Transfer'];
-
-        $this->assertContains('COD', $methods);
-    }
-
-    public function testCheckoutTotal()
-    {
-        $this->assertEquals(120000, 100000 + 20000);
-    }
-
-    public function testOrderCodeGenerated()
-    {
-        $code = 'ORD001';
-
-        $this->assertStringStartsWith('ORD', $code);
-    }
-
     public function testEmailFormat()
     {
         $this->assertMatchesRegularExpression(
@@ -48,20 +29,49 @@ class CheckoutValidationTest extends CIUnitTestCase
         );
     }
 
+    public function testCheckoutTotalCalculation()
+    {
+        $total = (50000 * 2) + 20000;
+
+        $this->assertEquals(120000, $total);
+    }
+
+    public function testOrderCodeStartsWithORD()
+    {
+        $code = 'ORD001';
+
+        $this->assertStringStartsWith('ORD', $code);
+    }
+
+    public function testCartNotEmpty()
+    {
+        $cart = [
+            'Puzzle',
+            'Robot'
+        ];
+
+        $this->assertNotEmpty($cart);
+    }
+
+    public function testQuantityGreaterThanZero()
+    {
+        $qty = 2;
+
+        $this->assertGreaterThan(0, $qty);
+    }
+
     public function testCustomerDataArray()
     {
-        $customer = ['name' => 'User'];
+        $customer = [
+            'nama' => 'Saskia',
+            'email' => 'user@gmail.com'
+        ];
 
-        $this->assertArrayHasKey('name', $customer);
+        $this->assertArrayHasKey('nama', $customer);
     }
 
-    public function testCheckoutSuccessBoolean()
+    public function testTotalPriceGreaterThanZero()
     {
-        $this->assertTrue(true);
-    }
-
-    public function testTotalGreaterThanZero()
-    {
-        $this->assertGreaterThan(0, 50000);
+        $this->assertGreaterThan(0, 120000);
     }
 }

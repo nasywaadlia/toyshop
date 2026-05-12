@@ -6,64 +6,69 @@ use CodeIgniter\Test\CIUnitTestCase;
 
 class ProductValidationTest extends CIUnitTestCase
 {
-    public function testProductNameIsNotEmpty()
+    public function testProductNameNotEmpty()
     {
-        $this->assertNotEmpty('Toy Car');
+        $this->assertNotEmpty('Robot');
     }
 
-    public function testProductPriceIsNumeric()
+    public function testProductPriceNumeric()
     {
         $this->assertIsNumeric(50000);
     }
 
-    public function testProductStockIsInteger()
+    public function testProductPriceGreaterThanZero()
     {
-        $this->assertIsInt(10);
+        $this->assertGreaterThan(0, 50000);
     }
 
-    public function testProductImageExtension()
+    public function testProductDescriptionNotEmpty()
     {
-        $this->assertContains('jpg', ['jpg', 'png', 'jpeg']);
+        $this->assertNotEmpty('Mainan robot anak');
     }
 
-    public function testProductCategoryExists()
+    public function testProductImageFormat()
     {
-        $this->assertTrue(true);
+        $image = 'robot.jpg';
+
+        $this->assertStringEndsWith('.jpg', $image);
     }
 
-    public function testPriceGreaterThanZero()
-    {
-        $this->assertGreaterThan(0, 1000);
-    }
-
-    public function testDiscountCalculation()
-    {
-        $price = 100000;
-        $discount = 10000;
-
-        $this->assertEquals(90000, $price - $discount);
-    }
-
-    public function testSlugGeneration()
-    {
-        $slug = strtolower(str_replace(' ', '-', 'Toy Robot'));
-
-        $this->assertEquals('toy-robot', $slug);
-    }
-
-    public function testProductCodeLength()
-    {
-        $this->assertGreaterThanOrEqual(5, strlen('PRD01'));
-    }
-
-    public function testProductArrayStructure()
+    public function testProductArrayHasName()
     {
         $product = [
-            'name' => 'Toy Car',
-            'price' => 10000,
-            'stock' => 5
+            'name' => 'Puzzle'
         ];
 
         $this->assertArrayHasKey('name', $product);
+    }
+
+    public function testProductArrayHasPrice()
+    {
+        $product = [
+            'price' => 50000
+        ];
+
+        $this->assertArrayHasKey('price', $product);
+    }
+
+    public function testProductArrayHasCategory()
+    {
+        $product = [
+            'category_id' => 1
+        ];
+
+        $this->assertArrayHasKey('category_id', $product);
+    }
+
+    public function testProductNameLength()
+    {
+        $this->assertGreaterThan(3, strlen('Puzzle'));
+    }
+
+    public function testProductStockSimulation()
+    {
+        $stock = 10;
+
+        $this->assertGreaterThan(0, $stock);
     }
 }
